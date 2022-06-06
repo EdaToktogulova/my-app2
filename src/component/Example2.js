@@ -1,10 +1,11 @@
 import React from 'react';
 
-function Example1() {
+function Example2() {
    return (
       <div>
+         
       </div>
    )
 }
 
-export default Example1;
+export default Example2;
