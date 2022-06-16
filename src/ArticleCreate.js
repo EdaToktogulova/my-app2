@@ -1,13 +1,18 @@
-import React from 'react';
+import axios from "axios";
 
 function ArticleCreate() {
-      const onFormSubmit = function (event) {
+   const onFormSubmit = function (event) {
+      event.preventDefault();
       const formData = new FormData(event.target);
-      
+
+      axios.post(
+         "https://articles-cc00e-default-rtdb.firebaseio.com/articles.json",
+         Object.fromEntries(formData.entries())
+      );
    }
 
    return (
-      <form>
+      <form className="ArticleCreate" onSubmit={onFormSubmit}>
          <div>
             <label>
                Title
@@ -17,12 +22,12 @@ function ArticleCreate() {
          <div>
             <label>
                Description
-               <textarea name="description"></textarea>
+               <textarea name="description" required></textarea>
             </label>
          </div>
          <button>Submit</button>
       </form>
-   )
+   );
 }
 
 export default ArticleCreate;
