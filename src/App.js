@@ -1,22 +1,18 @@
-import { Route, Routes } from 'react-router-dom';
-import ArticleCreate from './ArticleCreate';
-import ArticleFull from './ArticleFull';
-import ArticleList from './ArticleList';
-import ArticleUpdate from './ArticleUpdate';
-import ArticleDelete from './ArticleDelete';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUsers } from "./usersSlice";
 
-function App() {
-  return (
-    <div className="App">
-      <Routes>
-        <Route path="/" element={<ArticleList />} />
-        <Route path="/create" element={<ArticleCreate />} />
-        <Route path="/:id" element={<ArticleFull />} />
-        <Route path="/update/:id" element={<ArticleUpdate />} />
-        <Route path="/delete/:id" element={<ArticleDelete />} />
-      </Routes>
-    </div>
-  );
+
+export default function App() {
+  const dispatch = useDispatch();
+  const users = useSelector(store => store.users.users);
+
+  useEffect(() => {
+    dispatch(loadUsers());
+  }, []);
+
+  const output = users.map(user => <li key={user.id}>{user.name}</li>);
+
+
+  return <ul className="App">{output}</ul>;
 }
-
-export default App;
